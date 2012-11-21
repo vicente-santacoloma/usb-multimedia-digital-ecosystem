@@ -21,6 +21,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.*;
 
 /**
  *
@@ -28,20 +29,29 @@ import java.util.logging.Logger;
  */
 public class MultimediaSharerAgent extends Agent {
   
-  //private HashMap catalogue;
+  private HashMap catalogue;
   //private ArrayList targetMultimedia;
   private String targetMultimedia;
   private MultimediaSharerGUI myGUI;
   private AID[] sharerAgents;
-
+  
+  public String getTargetM(){
+      return targetMultimedia;
+  }
+  
+  public void setTargetM(String t){
+      targetMultimedia = t;
+  }
+  
+   
   @Override
   protected void setup() {
     
-    System.out.println("Hello! Multimedia-Sharer-Agent "+getAID().getName()+" is ready.");
+    System.out.println("Hello! Multimedia-Sharer-Agent "+getAID().getName()+" is ready.\n");
     
-    //catalogue = new HashMap();
+    catalogue = new HashMap();
     //targetMultimedia = new ArrayList();
-    /*
+    
     myGUI = new MultimediaSharerGUI();
     
     java.awt.EventQueue.invokeLater(new Runnable() {
@@ -51,7 +61,7 @@ public class MultimediaSharerAgent extends Agent {
       }
     });
     myGUI.setMyAgent(this);
-    */
+    
     
     DFAgentDescription dfd = new DFAgentDescription();
     dfd.setName(getAID());
@@ -64,9 +74,9 @@ public class MultimediaSharerAgent extends Agent {
     } catch (FIPAException fe) {
       fe.printStackTrace();
     }
-    Object [] args = getArguments();
-    if(args != null && args.length > 0) {
-      targetMultimedia = (String) args[0];
+   // Object [] args = getArguments();
+    //if(args != null && args.length > 0) {
+      targetMultimedia = getTargetM();
       System.out.println("The target multimedia is "+targetMultimedia);
       /*
       for(int i = 0; i < args.length; ++i) {
@@ -102,7 +112,7 @@ public class MultimediaSharerAgent extends Agent {
           myAgent.addBehaviour(new RequestMultimedia());
         }      
       });
-    }
+   // }
     addBehaviour(new ShareMultimedia());
   }
   
@@ -204,6 +214,18 @@ public class MultimediaSharerAgent extends Agent {
       }
     }
     
+  }
+  
+  /**
+   * This is invoked by the GUI when the user adds a new file
+   */
+  public void updateCatalogue(final String path, final String name) {
+    addBehaviour(new OneShotBehaviour() {
+      public void action() {
+        catalogue.put(name, path);
+        System.out.println(name+" inserted into catalogue.\n");
+      }
+    } );
   }
 
 }
