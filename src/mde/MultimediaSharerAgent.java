@@ -104,6 +104,7 @@ public class MultimediaSharerAgent extends Agent {
       });
     }
     addBehaviour(new ShareMultimedia());
+    
   }
   
   private class RequestMultimedia extends Behaviour {
@@ -151,7 +152,6 @@ public class MultimediaSharerAgent extends Agent {
           }
           step = 2;
           break;
-        
       }
     }
 
@@ -189,7 +189,7 @@ public class MultimediaSharerAgent extends Agent {
           }
           reply.setPerformative(ACLMessage.PROPOSE);
           reply.setContent("Multimedia-received");
-          System.out.println("Multimedia-received");
+          System.out.println("Multimedia-received "+fileName);
         }
         else {
           // The requested book is NOT available for sale.
