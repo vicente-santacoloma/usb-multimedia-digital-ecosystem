@@ -59,6 +59,8 @@ public class MultimediaSharerAgent extends Agent {
     
     addBehaviour(new OfferMultimediaBehaviour(this));
     
+    addBehaviour(new ShareMultimediaBehaviour(this));
+    
   }
   
   @Override
@@ -72,6 +74,7 @@ public class MultimediaSharerAgent extends Agent {
     }
   }
   
+  /*
   private class RequestMultimedia extends Behaviour {
 
     private MessageTemplate mt;
@@ -170,6 +173,7 @@ public class MultimediaSharerAgent extends Agent {
     }
     
   }
+  */
 
   public boolean addFileCatalogue(File file) { 
     

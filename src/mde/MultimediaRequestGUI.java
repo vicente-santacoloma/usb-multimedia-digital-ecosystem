@@ -121,6 +121,9 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
     if(index != -1) {
       AID targetAgent = multimediaSharerGUI.getMyAgent().getRequestAgents().get(index);
       System.out.println("Target Agent: " + targetAgent.toString());
+      multimediaSharerGUI.getMyAgent().addBehaviour(
+                new RequestMultimediaBehaviour(targetAgent, multimediaSharerGUI.getMyAgent()));
+      //Put new template hear.
     } else {
       System.out.println("Not Target Agent Selected");
     }
