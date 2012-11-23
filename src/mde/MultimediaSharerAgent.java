@@ -19,9 +19,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.*;
 
 /**
  *
@@ -30,39 +30,21 @@ import java.util.*;
 public class MultimediaSharerAgent extends Agent {
   
   private HashMap catalogue;
-  //private ArrayList targetMultimedia;
   private String targetMultimedia;
   private MultimediaSharerGUI myGUI;
-  private AID[] sharerAgents;
+  private ArrayList<AID> requestAgents;
+  private AID [] sharerAgents;
   
-  public String getTargetM(){
-      return targetMultimedia;
-  }
-  
-  public void setTargetM(String t){
-      targetMultimedia = t;
-  }
-  
-   
   @Override
   protected void setup() {
     
-    System.out.println("Hello! Multimedia-Sharer-Agent "+getAID().getName()+" is ready.\n");
+    System.out.println("Hello! Multimedia-Sharer-Agent " + getAID().getName()+" is ready.\n");
     
     catalogue = new HashMap();
-    //targetMultimedia = new ArrayList();
-    
-    myGUI = new MultimediaSharerGUI();
-    
-    java.awt.EventQueue.invokeLater(new Runnable() {
-      @Override
-      public void run() {
-        myGUI.setVisible(true);
-      }
-    });
-    myGUI.setMyAgent(this);
-    
-    
+    requestAgents = new ArrayList<>();
+
+    MultimediaSharerGUI.main(this);
+        
     DFAgentDescription dfd = new DFAgentDescription();
     dfd.setName(getAID());
     ServiceDescription sd = new ServiceDescription();
@@ -74,47 +56,20 @@ public class MultimediaSharerAgent extends Agent {
     } catch (FIPAException fe) {
       fe.printStackTrace();
     }
-   // Object [] args = getArguments();
-    //if(args != null && args.length > 0) {
-      targetMultimedia = getTargetM();
-      System.out.println("The target multimedia is "+targetMultimedia);
-      /*
-      for(int i = 0; i < args.length; ++i) {
-        targetMultimedia.add((String) args[i]);
-        System.out.println("The multimedia "+i+" to request is "+(String) args[i]);
-      }
-      */
-      
-      addBehaviour(new OneShotBehaviour() {
-
-        @Override
-        public void action() {
-          
-          System.out.println("Trying to share "+targetMultimedia);
-          DFAgentDescription template = new DFAgentDescription();
-          ServiceDescription sd = new ServiceDescription();
-          sd.setType("multimedia-sharing");
-          template.addServices(sd);
-          try {
-            DFAgentDescription[] result = DFService.search(myAgent, template); 
-            System.out.println("Found the following receiver agents:");
-            sharerAgents = new AID[result.length];
-            for (int i = 0; i < result.length; ++i) {
-              sharerAgents[i] = result[i].getName();
-              System.out.println(sharerAgents[i].getName());
-            }
-          }
-          catch (FIPAException fe) {
-            fe.printStackTrace();
-          }
-
-          // Perform the request
-          myAgent.addBehaviour(new RequestMultimedia());
-        }      
-      });
-   // }
-    addBehaviour(new ShareMultimedia());
     
+    addBehaviour(new OfferMultimediaBehaviour(this));
+    
+  }
+  
+  @Override
+  protected void takeDown() {
+    try {
+      System.out.println("Taking Down! Multimedia-Sharer-Agent " + getAID().getName()+"\n");
+      DFService.deregister(this);
+    } catch (FIPAException ex) {
+      ex.printStackTrace();
+      Logger.getLogger(MultimediaSharerAgent.class.getName()).log(Level.SEVERE, null, ex);
+    }
   }
   
   private class RequestMultimedia extends Behaviour {
@@ -215,17 +170,67 @@ public class MultimediaSharerAgent extends Agent {
     }
     
   }
-  
-  /**
-   * This is invoked by the GUI when the user adds a new file
-   */
-  public void updateCatalogue(final String path, final String name) {
-    addBehaviour(new OneShotBehaviour() {
-      public void action() {
-        catalogue.put(name, path);
-        System.out.println(name+" inserted into catalogue.\n");
+
+  public boolean addFileCatalogue(File file) { 
+    
+    File f = (File) catalogue.get(file.getName());
+    
+    if(f != null) {
+      if(!f.getAbsolutePath().equals(file.getAbsolutePath())) {
+        catalogue.put(file.getName(), file);
+        return true;
       }
-    } );
+    } else {
+      catalogue.put(file.getName(), file);
+      return true;
+    }
+    return false;
+  }
+  
+  public void removeFileCatalogue(File file) { 
+    //catalogue.put(file, file.getName());
+  }
+    
+  // Getters and Setters
+
+  public HashMap getCatalogue() {
+    return catalogue;
+  }
+
+  public void setCatalogue(HashMap catalogue) {
+    this.catalogue = catalogue;
+  }
+
+  public String getTargetMultimedia() {
+    return targetMultimedia;
+  }
+
+  public void setTargetMultimedia(String targetMultimedia) {
+    this.targetMultimedia = targetMultimedia;
+  }
+
+  public MultimediaSharerGUI getMyGUI() {
+    return myGUI;
+  }
+
+  public void setMyGUI(MultimediaSharerGUI myGUI) {
+    this.myGUI = myGUI;
+  }
+
+  public ArrayList<AID> getRequestAgents() {
+    return requestAgents;
+  }
+
+  public void setRequestAgents(ArrayList<AID> requestAgents) {
+    this.requestAgents = requestAgents;
+  }
+
+  public AID[] getSharerAgents() {
+    return sharerAgents;
+  }
+
+  public void setSharerAgents(AID[] sharerAgents) {
+    this.sharerAgents = sharerAgents;
   }
 
 }
