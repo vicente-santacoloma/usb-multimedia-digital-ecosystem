@@ -271,6 +271,7 @@ public class MultimediaSharerGUI extends javax.swing.JFrame {
         multimediaSharerGUI.setVisible(true);
         multimediaSharerGUI.setMyAgent(multimediaSharerAgent);
         multimediaSharerAgent.setMyGUI(multimediaSharerGUI);
+        multimediaSharerGUI.getHeader().setText(multimediaSharerGUI.getHeader().getText() + ":" + multimediaSharerAgent.getLocalName());
       }
     });
   }

@@ -32,7 +32,8 @@ public class ShareMultimediaBehaviour extends CyclicBehaviour {
     if(msg != null) {
       MultimediaSharerAgent multimediaSharerAgent = (MultimediaSharerAgent) myAgent;
       ACLMessage reply = msg.createReply();
-      File file = (File) multimediaSharerAgent.getCatalogue().get(reply.getContent());
+      System.out.println("File Name: "+msg.getContent());
+      File file = (File) multimediaSharerAgent.getCatalogue().get(msg.getContent());
       byte [] multimediaContent = null;
       if(file != null && file.exists()) {
         try {

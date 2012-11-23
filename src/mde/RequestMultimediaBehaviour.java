@@ -46,6 +46,7 @@ public class RequestMultimediaBehaviour extends Behaviour {
         ACLMessage request = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
         request.addReceiver(targetAgent);
         request.setContent(multimediaSharerAgent.getTargetMultimedia());
+        System.out.println("Request Multimedia Content: "+request.getContent());
         request.setConversationId("multimedia-trade");
         request.setReplyWith("request" + System.currentTimeMillis());
         myAgent.send(request);

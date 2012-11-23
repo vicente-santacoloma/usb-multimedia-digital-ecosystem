@@ -172,6 +172,7 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
         multimediaRequestGUI.setMultimediaSharerGUI(multimediaSharerGUI);
         multimediaSharerGUI.getMyAgent().addBehaviour(
                 new SearchMultimediaBehaviour(multimediaRequestGUI, multimediaSharerGUI.getMyAgent()));
+        multimediaRequestGUI.getHeader().setText(multimediaRequestGUI.getHeader().getText() + ":" + multimediaSharerGUI.getMyAgent().getLocalName());
       }
     });
   }
