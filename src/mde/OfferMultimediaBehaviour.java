@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import jade.core.behaviours.CyclicBehaviour;
@@ -10,10 +6,14 @@ import jade.lang.acl.MessageTemplate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class OfferMultimediaBehaviour extends CyclicBehaviour {
 
@@ -24,6 +24,10 @@ public class OfferMultimediaBehaviour extends CyclicBehaviour {
     super(multimediaSharerAgent);
   }
 
+  /**
+   * Offer the list of multimedia files associated to the request 
+   * performed by an agent.
+   */
   @Override
   public void action() {
     MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
@@ -35,7 +39,6 @@ public class OfferMultimediaBehaviour extends CyclicBehaviour {
       System.out.println("Multimedia Name Receive:"+multimediaName);
       File file = null;
       ArrayList<File> files = new ArrayList<>();
-      //File file = (File) multimediaSharerAgent.getCatalogue().get(multimediaName);
       for(int i = 0; i < multimediaSharerAgent.getCatalogue().size(); ++i) {
         if((multimediaSharerAgent.getCatalogue().get(i).exists()) && 
                 multimediaSharerAgent.getCatalogue().get(i).getName().

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm -f ./MDE Downloads/*
+
 INPUT_PARAMETERS=(${@})
 LENGTH=${#}
 
@@ -33,4 +35,4 @@ for (( i = 0; i < $agents; ++i )); do
 	sharer_agents+="Agent"$i":mde.MultimediaSharerAgent;"
 done
 
-java -cp $HOME/JADE-all-4.2.0/JADE-bin-4.2.0/lib/jade.jar jade.Boot -container -local-host $local_host -local-port $port -host $host $sharer_agents
+java -cp $HOME/JADE-all-4.2.0/JADE-bin-4.2.0/lib/jade.jar:./build/classes/ jade.Boot -container -local-host $local_host -local-port $port -host $host $sharer_agents

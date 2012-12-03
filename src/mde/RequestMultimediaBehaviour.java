@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import jade.core.AID;
@@ -12,10 +8,14 @@ import jade.lang.acl.MessageTemplate;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class RequestMultimediaBehaviour extends Behaviour {
   
@@ -37,6 +37,12 @@ public class RequestMultimediaBehaviour extends Behaviour {
     this.targetFile = targetFile;
   }
 
+  /**
+   * Performed a request to the choice file and agent.
+   * 
+   * First it send a message containing the multimedia target file. Second it 
+   * receive the multimedia content.
+   */
   @Override
   public void action() {
     
@@ -76,6 +82,12 @@ public class RequestMultimediaBehaviour extends Behaviour {
     }
   }
 
+  /**
+   * Evaluate the status of the request behavior.
+   * 
+   * @return true if the agent has finished executing the request behaviour. 
+   *          false otherwise.
+   */
   @Override
   public boolean done() {
     return (step == 2);

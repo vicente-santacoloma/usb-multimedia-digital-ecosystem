@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import javax.swing.JFileChooser;
@@ -10,6 +6,8 @@ import javax.swing.JFileChooser;
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class FileChooser extends javax.swing.JFrame {
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import jade.core.AID;
@@ -23,6 +19,8 @@ import javax.swing.JScrollPane;
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class MultimediaRequestGUI extends javax.swing.JFrame {
 
@@ -248,7 +246,6 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
             pingTime = "timeout";
             System.out.println("Ping failed.");
         }
-        
         
         modelContent = file.getName() + " - " + file.length() + " bytes" + " - " 
                 + agent.getLocalName() + " - " + pingTime;

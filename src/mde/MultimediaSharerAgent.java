@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import jade.core.AID;
@@ -17,7 +13,9 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author vicente
+ * @author  vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class MultimediaSharerAgent extends Agent {
   
@@ -28,13 +26,15 @@ public class MultimediaSharerAgent extends Agent {
   private HashMap requestCatalogue;
   private AID [] sharerAgents;
   
+  /**
+   * Initializes the agent.
+   * 
+   */
   @Override
   protected void setup() {
     
     System.out.println("Hello! Multimedia-Sharer-Agent " + getAID().getName()+" is ready.\n");
-    //catalogue = new HashMap();
     catalogue = new ArrayList<>();
-    //requestAgents = new ArrayList<>();
     requestAgents = new HashMap();
     requestCatalogue = new HashMap();
 
@@ -50,6 +50,7 @@ public class MultimediaSharerAgent extends Agent {
       DFService.register(this, dfd);
     } catch (FIPAException fe) {
       fe.printStackTrace();
+      //Logger.getLogger(MultimediaSharerAgent.class.getName()).log(Level.SEVERE, null, fe);
     }
     
     addBehaviour(new OfferMultimediaBehaviour(this));
@@ -58,6 +59,10 @@ public class MultimediaSharerAgent extends Agent {
     
   }
   
+  /**
+   * Deregister the agent from the DFService.
+   * 
+   */
   @Override
   protected void takeDown() {
     try {
@@ -65,10 +70,17 @@ public class MultimediaSharerAgent extends Agent {
       DFService.deregister(this);
     } catch (FIPAException ex) {
       ex.printStackTrace();
-      Logger.getLogger(MultimediaSharerAgent.class.getName()).log(Level.SEVERE, null, ex);
+      //Logger.getLogger(MultimediaSharerAgent.class.getName()).log(Level.SEVERE, null, ex);
     }
   }
 
+  /**
+   * Add a file to the agent catalog.
+   * 
+   * @param file the file to add.
+   * @return true if the file is added. 
+   *          false otherwise.
+   */
   public boolean addFileCatalogue(File file) { 
     
     File f = null;
@@ -81,7 +93,6 @@ public class MultimediaSharerAgent extends Agent {
 
     if(f != null) {
       if(!f.getAbsolutePath().equals(file.getAbsolutePath())) {
-        //catalogue.put(file.getName(), file);
         catalogue.add(file);
         return true;
       }
@@ -91,11 +102,7 @@ public class MultimediaSharerAgent extends Agent {
     }
     return false;
   }
-  
-  public void removeFileCatalogue(File file) { 
-    //catalogue.put(file, file.getName());
-  }
-    
+      
   // Getters and Setters
 
   public ArrayList<File> getCatalogue() {

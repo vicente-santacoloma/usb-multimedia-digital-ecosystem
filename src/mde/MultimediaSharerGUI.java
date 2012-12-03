@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import java.io.File;
@@ -18,6 +14,8 @@ import javax.swing.JTextField;
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
 public class MultimediaSharerGUI extends javax.swing.JFrame {
   

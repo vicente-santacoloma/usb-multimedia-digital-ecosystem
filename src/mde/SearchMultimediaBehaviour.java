@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package mde;
 
 import jade.core.AID;
@@ -13,10 +9,14 @@ import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.lang.acl.UnreadableException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author vicente
+ * @version 1.0
+ * @since   2012-12-03
  */
   public class SearchMultimediaBehaviour extends Behaviour {
 
@@ -38,6 +38,13 @@ import jade.lang.acl.UnreadableException;
       this.multimediaRequestGUI = multimediaRequestGUI;
     }
 
+    /**
+     * Search for all the multimedia files for every agent.
+     * 
+     * First update the list of sharer agents. Second send the multimedia target
+     * name to every sharer agent. Finally receive all proposal or refuse from 
+     * every agent with the corresponding multimedia file to be share.
+     */
     @Override
     public void action() {
       
@@ -66,6 +73,7 @@ import jade.lang.acl.UnreadableException;
           }
           catch (FIPAException fe) {
             fe.printStackTrace();
+            //Logger.getLogger(SearchMultimediaBehaviour.class.getName()).log(Level.SEVERE, null, fe);
           }
           ++step;
           break;
@@ -89,9 +97,7 @@ import jade.lang.acl.UnreadableException;
 	  ACLMessage reply = myAgent.receive(mt);
           if(reply != null) {
             // Reply received
-            //System.out.println(reply.getContent());
             if(reply.getPerformative() == ACLMessage.PROPOSE) {
-              //multimediaSharerAgent.getRequestAgents().add(reply.getSender());
               multimediaSharerAgent.getRequestAgents().put(reply.getSender().getName(), reply.getSender());
               try {
                 multimediaSharerAgent.getRequestCatalogue().put(reply.getSender().getName(), reply.getContentObject());
@@ -104,7 +110,6 @@ import jade.lang.acl.UnreadableException;
             if(repliesCnt >= multimediaSharerAgent.getSharerAgents().length) {
               ++step;
               multimediaRequestGUI.drawAgents(multimediaSharerAgent);
-              //multimediaSharerAgent
             }
           } else {
             block();
@@ -113,6 +118,12 @@ import jade.lang.acl.UnreadableException;
       }
     }
 
+    /**
+     * Evaluate the status of the search behavior.
+     * 
+     * @return true if the agent has finished executing the search behaviour. 
+     *          false otherwise.
+     */
     @Override
     public boolean done() {
       return (step == 3);
