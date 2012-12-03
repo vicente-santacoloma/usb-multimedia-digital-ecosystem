@@ -5,7 +5,6 @@
 package mde;
 
 import jade.core.AID;
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -13,7 +12,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.domain.FIPAException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import java.util.ArrayList;
+import jade.lang.acl.UnreadableException;
 
 /**
  *
@@ -53,7 +52,7 @@ import java.util.ArrayList;
           try {
             DFAgentDescription[] result = DFService.search(myAgent, template); 
             System.out.println("Found the following agents:");
-            System.out.println("Result Length" + result.length);
+            System.out.println("result length: " + result.length);
             AID sharerAgents [] = new AID[result.length - 1];
             int k = 0;
             for(int i = 0; i < result.length; ++i) {
@@ -90,8 +89,16 @@ import java.util.ArrayList;
 	  ACLMessage reply = myAgent.receive(mt);
           if(reply != null) {
             // Reply received
+            //System.out.println(reply.getContent());
             if(reply.getPerformative() == ACLMessage.PROPOSE) {
-              multimediaSharerAgent.getRequestAgents().add(reply.getSender());
+              //multimediaSharerAgent.getRequestAgents().add(reply.getSender());
+              multimediaSharerAgent.getRequestAgents().put(reply.getSender().getName(), reply.getSender());
+              try {
+                multimediaSharerAgent.getRequestCatalogue().put(reply.getSender().getName(), reply.getContentObject());
+              } catch (UnreadableException ex) {
+                ex.printStackTrace();
+                //Logger.getLogger(SearchMultimediaBehaviour.class.getName()).log(Level.SEVERE, null, ex);
+              }
             }
             ++repliesCnt;
             if(repliesCnt >= multimediaSharerAgent.getSharerAgents().length) {

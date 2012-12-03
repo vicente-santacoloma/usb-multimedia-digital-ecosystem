@@ -5,7 +5,14 @@
 package mde;
 
 import jade.core.AID;
+import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -117,13 +124,33 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
 
   private void RequestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RequestMouseClicked
     // TODO add your handling code here:
+    File targetFile = null;
+    AID targetAgent = null;
+    ArrayList<File> agentsFiles = null;
+    
     int index = jList1.getSelectedIndex();
     if(index != -1) {
-      AID targetAgent = multimediaSharerGUI.getMyAgent().getRequestAgents().get(index);
-      System.out.println("Target Agent: " + targetAgent.toString());
-      multimediaSharerGUI.getMyAgent().addBehaviour(
-                new RequestMultimediaBehaviour(targetAgent, multimediaSharerGUI.getMyAgent()));
-      //Put new template hear.
+      
+      MultimediaSharerAgent multimediaSharerAgent = multimediaSharerGUI.getMyAgent();
+      Collection<AID> requestAgents = multimediaSharerAgent.getRequestAgents().values();
+      Iterator it = requestAgents.iterator();
+
+      while(it.hasNext()) {
+
+        targetAgent = (AID)it.next();
+        agentsFiles = (ArrayList<File>) multimediaSharerAgent.
+                getRequestCatalogue().get(targetAgent.getName());
+        
+        if(index < agentsFiles.size()) {
+          targetFile = agentsFiles.get(index);
+          multimediaSharerAgent.addBehaviour(
+                new RequestMultimediaBehaviour(targetAgent, targetFile, multimediaSharerGUI.getMyAgent()));
+          break;
+        } else {
+          index -= agentsFiles.size();
+        }
+      }
+
     } else {
       System.out.println("Not Target Agent Selected");
     }
@@ -132,6 +159,7 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
   private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
     // TODO add your handling code here:
     multimediaSharerGUI.getMyAgent().getRequestAgents().clear();
+    multimediaSharerGUI.getMyAgent().getRequestCatalogue().clear();
     multimediaSharerGUI.setVisible(true);
     this.dispose();
   }//GEN-LAST:event_BackMouseClicked
@@ -188,11 +216,45 @@ public class MultimediaRequestGUI extends javax.swing.JFrame {
 
   public void drawAgents(MultimediaSharerAgent multimediaSharerAgent) {
     
-    ArrayList<AID> requestAgents = multimediaSharerAgent.getRequestAgents();
     DefaultListModel model = (DefaultListModel)jList1.getModel();
-    for(int i = 0; i < requestAgents.size(); ++i) {
-      model.addElement(requestAgents.get(i).toString());
-      //model.addElement(requestAgents.get(i).getName());
+    Collection<AID> requestAgents = multimediaSharerAgent.getRequestAgents().values();
+    Iterator it = requestAgents.iterator();
+    String modelContent = null;
+    File file = null;
+    String pingTime = null;
+    
+    while(it.hasNext()) {
+      
+      AID agent = (AID)it.next();
+      ArrayList<File> agentsFiles = (ArrayList<File>) multimediaSharerAgent.
+              getRequestCatalogue().get(agent.getName());
+      for(int i = 0; i < agentsFiles.size(); ++i) {
+        file = agentsFiles.get(i);
+        String host = agent.getHap().split(":")[0];
+        System.out.println("host: "+agent.getHap());
+        long currentTime = System.currentTimeMillis();
+        boolean isPinged = false; 
+        try {
+          isPinged = InetAddress.getByName(host).isReachable(2000); // 2 seconds
+        } catch (IOException ex) {
+          ex.printStackTrace();
+          //Logger.getLogger(MultimediaRequestGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        currentTime = System.currentTimeMillis() - currentTime;
+        if(isPinged) {
+            System.out.println("successful ping in " + currentTime + " ms");
+            pingTime = String.valueOf(currentTime) + " ms";
+        } else {
+            pingTime = "timeout";
+            System.out.println("Ping failed.");
+        }
+        
+        
+        modelContent = file.getName() + " - " + file.length() + " bytes" + " - " 
+                + agent.getLocalName() + " - " + pingTime;
+        model.addElement(modelContent);
+      }
+      
     }
 
   }

@@ -4,11 +4,12 @@
  */
 package mde;
 
-import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,16 +30,32 @@ public class OfferMultimediaBehaviour extends CyclicBehaviour {
     ACLMessage msg = myAgent.receive(mt);
     if(msg != null) {
       MultimediaSharerAgent multimediaSharerAgent = (MultimediaSharerAgent) myAgent;
-      String multimediaName = msg.getContent();
+      String multimediaName = msg.getContent().replaceAll("", ".*").toLowerCase();
       ACLMessage reply = msg.createReply();
       System.out.println("Multimedia Name Receive:"+multimediaName);
-      File file = (File) multimediaSharerAgent.getCatalogue().get(multimediaName);
-      if(file != null && file.exists()) {
+      File file = null;
+      ArrayList<File> files = new ArrayList<>();
+      //File file = (File) multimediaSharerAgent.getCatalogue().get(multimediaName);
+      for(int i = 0; i < multimediaSharerAgent.getCatalogue().size(); ++i) {
+        if((multimediaSharerAgent.getCatalogue().get(i).exists()) && 
+                multimediaSharerAgent.getCatalogue().get(i).getName().
+                replaceAll("[^A-Za-z0-9 ]", "").toLowerCase().matches(multimediaName)) {
+          files.add(multimediaSharerAgent.getCatalogue().get(i));
+        }
+      }
+      if(!files.isEmpty()) {
         reply.setPerformative(ACLMessage.PROPOSE);
-        reply.setContent("available"); //Aqui se puede mandar el tamano del archivo
+        try {
+          reply.setContentObject(files);
+        } catch (IOException ex) {
+          ex.printStackTrace();
+          //Logger.getLogger(OfferMultimediaBehaviour.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //reply.setContent("available");
+        
       } else {
         reply.setPerformative(ACLMessage.REFUSE);
-        reply.setContent("not-available");
+        //reply.setContent("not-available");
       }
       myAgent.send(reply);
     } else {

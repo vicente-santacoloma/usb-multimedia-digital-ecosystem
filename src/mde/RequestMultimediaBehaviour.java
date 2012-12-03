@@ -9,11 +9,9 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +20,7 @@ import java.util.logging.Logger;
 public class RequestMultimediaBehaviour extends Behaviour {
   
   private AID targetAgent;
+  private File targetFile;
   private MessageTemplate mt;
   private int step = 0;
 
@@ -32,9 +31,10 @@ public class RequestMultimediaBehaviour extends Behaviour {
     super(a);
   }
 
-  public RequestMultimediaBehaviour(AID targetAgent, Agent a) {
+  public RequestMultimediaBehaviour(AID targetAgent, File targetFile, Agent a) {
     super(a);
     this.targetAgent = targetAgent;
+    this.targetFile = targetFile;
   }
 
   @Override
@@ -45,7 +45,8 @@ public class RequestMultimediaBehaviour extends Behaviour {
       case 0:
         ACLMessage request = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
         request.addReceiver(targetAgent);
-        request.setContent(multimediaSharerAgent.getTargetMultimedia());
+        //request.setContent(multimediaSharerAgent.getTargetMultimedia());
+        request.setContent(targetFile.getName());
         System.out.println("Request Multimedia Content: "+request.getContent());
         request.setConversationId("multimedia-trade");
         request.setReplyWith("request" + System.currentTimeMillis());
@@ -61,7 +62,7 @@ public class RequestMultimediaBehaviour extends Behaviour {
             try {
               byte [] multimediaContent = reply.getByteSequenceContent();
               FileOutputStream fileOutput = 
-                      new FileOutputStream("./MDE Downloads/" + multimediaSharerAgent.getTargetMultimedia());
+                      new FileOutputStream("./MDE Downloads/" + targetFile.getName());
               fileOutput.write(multimediaContent);
             } catch (IOException ex) {
               ex.printStackTrace();
@@ -88,6 +89,14 @@ public class RequestMultimediaBehaviour extends Behaviour {
 
   public void setTargetAgent(AID targetAgent) {
     this.targetAgent = targetAgent;
+  }
+
+  public File getTargetFile() {
+    return targetFile;
+  }
+
+  public void setTargetFile(File targetFile) {
+    this.targetFile = targetFile;
   }
 
   public Agent getMyAgent() {
