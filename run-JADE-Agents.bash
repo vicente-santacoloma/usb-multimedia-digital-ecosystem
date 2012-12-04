@@ -5,7 +5,7 @@ rm -f ./MDE Downloads/*
 INPUT_PARAMETERS=(${@})
 LENGTH=${#}
 
-agents=4
+agents=2
 host=localhost
 local_host=localhost
 port=3000
