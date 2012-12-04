@@ -61,7 +61,7 @@ With Netbeans:
 build MDE project
 
 Without Netbeans:
-$ cd MDE/src/mde
+$ cd [Project Name]/src/mde
 $ ../../../build-JADE.bash
 
 ###############################################################################
@@ -69,7 +69,7 @@ $ ../../../build-JADE.bash
 ###############################################################################
 
 With Netbeans:
-$ cd MDE
+$ cd [Project Name]
 $ ./run-JADE-Main-Container.bash
 config Netbeans run properties with:
 	Main Class: jade.Boot
@@ -78,7 +78,7 @@ config Netbeans run properties with:
 run MDE project
 
 Without Netbeans:
-$ cd MDE
+$ cd [Project Name]
 $ ./run-JADE-Main-Container.bash
 $ ./run-JADE-Agents.bash -a [agents] -h [host] -l [localhost] -p [port]
 
