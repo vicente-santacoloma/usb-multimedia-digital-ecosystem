@@ -20,46 +20,55 @@ Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital
 | MultimediaRequestGUI.java       | GUI to select the desired multimedia content                                        |
 | FileChooser.java                | GUI to select a file in the directory tree                                          |
 
-###############################################################################
-# Configuration Instructions                                                  #
-###############################################################################
+## Configuration
 
-With Netbeans:
-Add the file "jade.jar" to the IDE
+### With Netbeans
 
-Without Netbeans:
-Copy the folder "JADE-all-4.2.0" in the user's home directory.
+Add the file `jade.jar` to the IDE
 
-###############################################################################
-# Build Instructions                                                          #
-###############################################################################
+### Without Netbeans
 
-With Netbeans:
+Copy the folder `JADE-all-4.2.0` in the user's home directory.
+
+## Build
+
+### With Netbeans
+
+```bash
 build MDE project
+```
 
-Without Netbeans:
-$ cd [Project Name]/src/mde
-$ ../../../build-JADE.bash
+### Without Netbeans
 
-###############################################################################
-# Execution Instructions                                                      #
-###############################################################################
+```bash
+cd [Project Name]/src/mde
+../../../build-JADE.bash
+```
 
-With Netbeans:
-$ cd [Project Name]
-$ ./run-JADE-Main-Container.bash
+## Execution Instructions
+
+### With Netbeans:
+
+```bash
+cd [Project Name]
+./run-JADE-Main-Container.bash
+
 config Netbeans run properties with:
-	Main Class: jade.Boot
-	Arguments: -container -local-host localhost -local-port 3000 -host localhost
-			   Agent1:mde.MultimediaSharerAgent;Agent2:mde.MultimediaSharerAgent
+* **Main Class:** jade.Boot
+* **Arguments:** -container -local-host localhost -local-port 3000 -host localhost Agent1:mde.MultimediaSharerAgent;Agent2:mde.MultimediaSharerAgent
+
 run MDE project
+```
 
-Without Netbeans:
-$ cd [Project Name]
-$ ./run-JADE-Main-Container.bash
-$ ./run-JADE-Agents.bash -a [agents] -h [host] -l [localhost] -p [port]
+### Without Netbeans:
 
-agents: number of agents to run. 2 by default
-host: host main container. "localhost" by default.
-localhost: application host. "localhost" by default.
-port: application port. 3000 by default.
+```bash
+cd [Project Name]
+./run-JADE-Main-Container.bash
+./run-JADE-Agents.bash -a [agents] -h [host] -l [localhost] -p [port]
+```
+
+* **agents:** number of agents to run. `2` by default
+* **host:** host main container. `localhost` by default.
+* **localhost:** application host. `localhost` by default.
+* **port:** application port. `3000` by default.
