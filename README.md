@@ -52,11 +52,13 @@ cd [Project Name]/src/mde
 ```bash
 cd [Project Name]
 ./run-JADE-Main-Container.bash
+```
 
 config Netbeans run properties with:
 * **Main Class:** jade.Boot
 * **Arguments:** -container -local-host localhost -local-port 3000 -host localhost Agent1:mde.MultimediaSharerAgent;Agent2:mde.MultimediaSharerAgent
 
+```bash
 run MDE project
 ```
 
