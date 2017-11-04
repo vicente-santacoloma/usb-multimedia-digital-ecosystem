@@ -4,8 +4,8 @@ Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital
 ## Members
 
 * María Andreina Loriente
+* Rosannys Ruiz
 * Vicente Santacoloma
-* Rosannys Ruíz
 
 ## Structure
 
