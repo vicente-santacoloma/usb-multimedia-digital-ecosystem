@@ -1,12 +1,6 @@
 # usb-multimedia-digital-ecosystem
 Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital Ecosystem
 
-## Members
-
-* María Andreina Loriente
-* Rosannys Ruiz
-* Vicente Santacoloma
-
 ## Structure
 
 | File                            | Description                                                                         |
@@ -20,7 +14,7 @@ Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital
 | SearchMultimediaBehaviour.java  | Agent behavior to search multimedia content associated with a pattern on all agents |
 | ShareMultimediaBehaviour.java   | Agent behavior to share multimedia content                                          |
 
-## Configuration
+## Configuration Instructions
 
 #### With Netbeans
 
@@ -30,7 +24,7 @@ Add the file `jade.jar` to the IDE
 
 Copy the folder `JADE-all-4.2.0` in the user's home directory.
 
-## Build
+## Build Instructions
 
 #### With Netbeans
 
@@ -45,7 +39,7 @@ cd [Project Name]/src/mde
 ../../../build-JADE.bash
 ```
 
-## Run
+## Run Instructions
 
 #### With Netbeans:
 
