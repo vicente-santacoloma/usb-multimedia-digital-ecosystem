@@ -22,23 +22,23 @@ Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital
 
 ## Configuration
 
-### With Netbeans
+#### With Netbeans
 
 Add the file `jade.jar` to the IDE
 
-### Without Netbeans
+#### Without Netbeans
 
 Copy the folder `JADE-all-4.2.0` in the user's home directory.
 
 ## Build
 
-### With Netbeans
+#### With Netbeans
 
 ```bash
 build MDE project
 ```
 
-### Without Netbeans
+#### Without Netbeans
 
 ```bash
 cd [Project Name]/src/mde
@@ -47,7 +47,7 @@ cd [Project Name]/src/mde
 
 ## Run
 
-### With Netbeans:
+#### With Netbeans:
 
 ```bash
 cd [Project Name]
@@ -62,7 +62,7 @@ config Netbeans run properties with:
 run MDE project
 ```
 
-### Without Netbeans:
+#### Without Netbeans:
 
 ```bash
 cd [Project Name]
