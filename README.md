@@ -29,13 +29,13 @@ Copy the folder `JADE-all-4.2.0` in the user's home directory.
 #### With Netbeans
 
 ```bash
-build MDE project
+build MDE [project_name]
 ```
 
 #### Without Netbeans
 
 ```bash
-cd [Project Name]/src/mde
+cd [project_name]/src/mde
 ../../../build-JADE.bash
 ```
 
@@ -44,7 +44,7 @@ cd [Project Name]/src/mde
 #### With Netbeans:
 
 ```bash
-cd [Project Name]
+cd [project_name]
 ./run-JADE-Main-Container.bash
 ```
 
@@ -59,7 +59,7 @@ run MDE project
 #### Without Netbeans:
 
 ```bash
-cd [Project Name]
+cd [project_name]
 ./run-JADE-Main-Container.bash
 ./run-JADE-Agents.bash -a [agents] -h [host] -l [localhost] -p [port]
 ```
