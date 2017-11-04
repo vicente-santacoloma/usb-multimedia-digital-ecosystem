@@ -45,7 +45,7 @@ cd [Project Name]/src/mde
 ../../../build-JADE.bash
 ```
 
-## Execution Instructions
+## Run
 
 ### With Netbeans:
 
