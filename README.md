@@ -11,14 +11,14 @@ Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital
 
 | File                            | Description                                                                         |
 |---------------------------------|-------------------------------------------------------------------------------------|
+| FileChooser.java                | GUI to select a file in the directory tree                                          |
+| MultimediaRequestGUI.java       | GUI to select the desired multimedia content                                        |
 | MultimediaSharerAgent.java      | Multimedia Digital Ecosystem agent                                                  |
+| MultimediaSharerGUI.java        | GUI to share, remove and search for multimedia content by a search pattern          |
 | OfferMultimediaBehaviour.java   | Agent behavior to offer multimedia content                                          |
 | RequestMultimediaBehaviour.java | Agent behavior to request multimedia content to an agent                            |
 | SearchMultimediaBehaviour.java  | Agent behavior to search multimedia content associated with a pattern on all agents |
 | ShareMultimediaBehaviour.java   | Agent behavior to share multimedia content                                          |
-| MultimediaSharerGUI.java        | GUI to share, remove and search for multimedia content by a search pattern          |
-| MultimediaRequestGUI.java       | GUI to select the desired multimedia content                                        |
-| FileChooser.java                | GUI to select a file in the directory tree                                          |
 
 ## Configuration
 
