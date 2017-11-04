@@ -1,47 +1,24 @@
-MDE
-===
+# usb-multimedia-digital-ecosystem
+Simón Bolívar University - CI4822 - Operating Systems III - Multimedia Digital Ecosystem
 
-###############################################################################
-#                        Multimedia Digital Ecosystem                         #
-###############################################################################
+## Members
 
-###############################################################################
-# Members                                                                     #
-###############################################################################
+* María Andreina Loriente
+* Vicente Santacoloma
+* Rosannys Ruíz
 
-Maria Andreina Loriente
-Vicente Santacoloma
-Rosannys Ruiz
+## Structure
 
-###############################################################################
-# Structure                                                                   #
-###############################################################################
-
-MultimediaSharerAgent.java: 
-	Multimedia Digital Ecosystem agent.
-
-OfferMultimediaBehaviour.java: 
-	Agent behavior to offer multimedia content.
-
-RequestMultimediaBehaviour.java:
-	Agent behavior to request multimedia content to an agent.
-
-SearchMultimediaBehaviour.java:
-	Agent behavior to search multimedia content associated with 
-	a pattern on all agents registered in the main container.
-
-ShareMultimediaBehaviour.java:
-	Agent behavior to share multimedia content.
-
-MultimediaSharerGUI.java:
-	GUI to share, remove and search for multimedia content by a 
-	search pattern.
-
-MultimediaRequestGUI.java:
-	GUI to select the desired multimedia content.
-
-FileChooser.java:
-	GUI to select a file in the directory tree.
+| File                            | Description                                                                         |
+|---------------------------------|-------------------------------------------------------------------------------------|
+| MultimediaSharerAgent.java      | Multimedia Digital Ecosystem agent                                                  |
+| OfferMultimediaBehaviour.java   | Agent behavior to offer multimedia content                                          |
+| RequestMultimediaBehaviour.java | Agent behavior to request multimedia content to an agent                            |
+| SearchMultimediaBehaviour.java  | Agent behavior to search multimedia content associated with a pattern on all agents |
+| ShareMultimediaBehaviour.java   | Agent behavior to share multimedia content                                          |
+| MultimediaSharerGUI.java        | GUI to share, remove and search for multimedia content by a search pattern          |
+| MultimediaRequestGUI.java       | GUI to select the desired multimedia content                                        |
+| FileChooser.java                | GUI to select a file in the directory tree                                          |
 
 ###############################################################################
 # Configuration Instructions                                                  #
